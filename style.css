@@ -1,0 +1,495 @@
+/* GLOBAL RESETS */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #1e2a38;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: #2f3f52;
+  padding-left: 18px;
+}
+
+/* ============ MAIN CONTENT ============ */
+.main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.main h1 {
+  margin-top: 0;
+  color: #333;
+  font-size: 28px;
+}
+
+.main h2 {
+  color: #555;
+  font-size: 18px;
+  margin-top: 25px;
+}
+
+.main h3 {
+  color: #666;
+  font-size: 16px;
+}
+
+/* ============ CARDS ============ */
+.cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #4CAF50;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1;
+  min-width: 150px;
+  max-width: 250px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  color: white;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 10px 0 0 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ============ INPUTS & BUTTONS ============ */
+input, select {
+  padding: 10px;
+  margin: 8px 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  width: auto;
+  min-width: 150px;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border: 2px solid #4CAF50;
+  background: #f9fff9;
+}
+
+button {
+  padding: 10px 20px;
+  background: #4CAF50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 8px 5px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #45a049;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ============ TABLES ============ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background: #f5f5f5;
+}
+
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* ============ SEARCH BOX ============ */
+.searchBox {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px 0;
+}
+
+.searchBox input {
+  width: 100%;
+  min-width: unset;
+  margin: 8px 0;
+}
+
+#suggestions {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  top: 100%;
+  left: 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.suggestion:hover {
+  background: #4CAF50;
+  color: white;
+}
+
+/* ============ CANVAS CHART ============ */
+canvas {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+
+/* MOBILE (320px - 479px) */
+@media (max-width: 479px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .sidebar h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .sidebar a {
+    margin: 5px;
+    padding: 10px 12px;
+    font-size: 12px;
+    flex: 0 1 auto;
+  }
+
+  .main {
+    padding: 15px;
+  }
+
+  .main h1 {
+    font-size: 22px;
+  }
+
+  .main h2 {
+    font-size: 16px;
+  }
+
+  .cards {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .card {
+    max-width: 100%;
+    min-width: unset;
+  }
+
+  input, select {
+    display: block;
+    width: 100%;
+    min-width: unset;
+    margin: 8px 0;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 4px;
+  }
+
+  /* Horizontal scroll for table on very small screens */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .searchBox {
+    max-width: 100%;
+  }
+}
+
+/* TABLET (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .sidebar h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .sidebar a {
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .main h1 {
+    font-size: 24px;
+  }
+
+  .main h2 {
+    font-size: 17px;
+  }
+
+  .cards {
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .card {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  input, select {
+    max-width: calc(50% - 5px);
+    margin: 8px 2px;
+  }
+
+  .searchBox {
+    max-width: 100%;
+  }
+
+  .searchBox input {
+    margin: 8px 0;
+  }
+
+  button {
+    max-width: calc(50% - 5px);
+    margin: 8px 2px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}
+
+/* DESKTOP (768px and above) */
+@media (min-width: 768px) {
+  body {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    width: 220px;
+    height: 100vh;
+  }
+
+  .sidebar a {
+    display: block;
+    width: 100%;
+  }
+
+  .main {
+    padding: 30px;
+  }
+
+  .cards {
+    flex-wrap: nowrap;
+  }
+
+  .card {
+    flex: 1;
+    max-width: unset;
+    min-width: 150px;
+  }
+
+  input, select {
+    max-width: 300px;
+  }
+
+  button {
+    margin: 8px 5px;
+  }
+
+  .searchBox {
+    max-width: 300px;
+  }
+}
+
+/* LARGE SCREENS (1024px and above) */
+@media (min-width: 1024px) {
+  .main {
+    padding: 40px;
+  }
+
+  .main h1 {
+    font-size: 32px;
+  }
+
+  input, select {
+    max-width: 400px;
+  }
+
+  .searchBox {
+    max-width: 400px;
+  }
+}
+
+/* EXTRA LARGE SCREENS (1440px and above) */
+@media (min-width: 1440px) {
+  .main {
+    padding: 50px;
+  }
+
+  table {
+    font-size: 15px;
+  }
+
+  th, td {
+    padding: 15px;
+  }
+}
+
+/* ============ UTILITY CLASSES ============ */
+
+/* Improve form layout */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.form-group input,
+.form-group select,
+.form-group button {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Print styles */
+@media print {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  button {
+    display: none;
+  }
+}

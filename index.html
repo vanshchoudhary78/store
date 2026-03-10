@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmacy Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+
+<body>
+<div class="sidebar">
+<h2>Pharmacy</h2>
+<a href="index.html">Dashboard</a>
+<a href="inventory.html">Inventory</a>
+<a href="billing.html">Billing</a>
+</div>
+<div class="main">
+<h1>Dashboard</h1>
+<div class="cards">
+<div class="card">
+<h3>Total Medicines</h3>
+<p id="totalMedicine"></p>
+</div>
+
+<div class="card">
+<h3>Low Stock</h3>
+<p id="lowStock"></p>
+</div>
+
+<div class="card">
+<h3>Total Sales</h3>
+<p id="totalSales">₹0</p>
+</div>
+
+</div>
+
+<h2>Sales Chart</h2>
+<canvas id="salesChart"></canvas>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

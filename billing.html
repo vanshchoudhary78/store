@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>Pharmacy</h2>
+<a href="index.html">Dashboard</a>
+<a href="inventory.html">Inventory</a>
+<a href="billing.html">Billing</a>
+</div>
+
+<div class="main">
+
+<h1>Billing</h1>
+
+<div class="searchBox">
+<input id="medicineName"
+placeholder="Search Medicine..."
+onkeyup="searchMedicineSuggest()"
+autocomplete="off">
+
+<div id="suggestions"></div>
+</div>
+
+<div class="form-group">
+<input id="price" placeholder="Price">
+<input id="billQty" placeholder="Quantity">
+
+<button onclick="addBill()">Add</button>
+</div>
+
+<h2>Bill</h2>
+
+<table id="billTable">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<h3>Total: ₹<span id="total">0</span></h3>
+
+<button onclick="completeSale()">Save Bill</button>
+
+<button id="downloadBtn" onclick="downloadPDF()" style="display:none;">
+Download Bill
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
