@@ -1,7 +1,7 @@
 let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
 let bill = [];
 let total = 0;
-let scannedMedicines = [];
+// let scannedMedicines = [];
 
 /* ---------------- INVENTORY ---------------- */
 
@@ -15,6 +15,16 @@ let qty=document.getElementById("qty").value;
 if(!name || !company || !price || !qty){
 alert("Fill all fields");
 return;
+}
+
+let exists = medicines.find(m => 
+m.name.toLowerCase() === name.toLowerCase() &&
+m.company.toLowerCase() === company.toLowerCase()
+)
+
+if(exists){
+alert("Medicine already exists ❌")
+return
 }
 
 medicines.push({name,company,price,qty});
@@ -50,6 +60,7 @@ table.innerHTML+=`
 <td>${med.price}</td>
 <td>${med.qty}</td>
 <td>
+<button onclick="editMedicine(${index})">Edit</button>
 <button onclick="deleteMedicine(${index})">Delete</button>
 </td>
 </tr>
@@ -68,6 +79,27 @@ medicines.splice(i,1);
 localStorage.setItem("medicines",JSON.stringify(medicines));
 
 showMedicines();
+
+}
+
+/* EDIT MEDICINE */
+
+function editMedicine(i){
+
+let m = medicines[i]
+
+// form fill karo
+document.getElementById("name").value = m.name
+document.getElementById("company").value = m.company
+document.getElementById("price").value = m.price
+document.getElementById("qty").value = m.qty
+
+// old record hata do
+medicines.splice(i,1)
+
+localStorage.setItem("medicines", JSON.stringify(medicines))
+
+showMedicines()
 
 }
 
@@ -93,6 +125,7 @@ table.innerHTML+=`
 <td>${med.price}</td>
 <td>${med.qty}</td>
 <td>
+<button onclick="editMedicine(${index})">Edit</button>
 <button onclick="deleteMedicine(${index})">Delete</button>
 </td>
 </tr>
@@ -369,97 +402,75 @@ loadDashboard();
 
 
 
-/* BILL OCR SCANNER */
 
-function scanBill(){
 
-let file=document.getElementById("billImage").files[0];
+// upload csv
+
+function uploadCSV(){
+
+let file=document.getElementById("csvFile").files[0]
 
 if(!file){
-alert("Upload bill image");
-return;
+alert("Select CSV file")
+return
 }
 
-document.getElementById("scanStatus").innerText="Scanning bill... please wait";
+let reader=new FileReader()
 
-Tesseract.recognize(
-file,
-'eng',
-{
-logger: m => console.log(m)
-}
-).then(({ data: { text } }) => {
+reader.onload=function(e){
 
-console.log(text);
-document.getElementById("scanStatus").innerText="Scan completed";
+let data=e.target.result
 
-parseBillText(text);
+let rows=data.split(/\r?\n/)
 
-});
+rows.shift()
 
-}
+rows.forEach((row)=>{
 
+if(!row.trim()) return
 
-function parseBillText(text){
+// clean row
+row=row.replace(/\r/g,"").trim()
 
-let lines=text.split("\n");
+// split (comma + quote safe)
+let cols=row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
 
-let table=document.querySelector("#scanTable tbody");
-
-table.innerHTML="";
-
-lines.forEach(line=>{
-
-let words=line.trim().split(/\s+/);
-
-if(words.length>=3){
-
-let price=parseFloat(words[words.length-1]);
-let qty=parseInt(words[words.length-2]);
-
-let name=words.slice(0,words.length-2).join(" ");
-
-if(!isNaN(price) && !isNaN(qty)){
-
-table.innerHTML+=`
-<tr>
-<td contenteditable="true">${name}</td>
-<td contenteditable="true">${qty}</td>
-<td contenteditable="true">${price}</td>
-</tr>
-`;
-
+// fallback semicolon
+if(cols.length<4){
+cols=row.split(";")
 }
 
+if(cols.length<4) return
+
+let name=cols[0].replace(/"/g,"").trim()
+let company=cols[1].replace(/"/g,"").trim()
+let price=parseFloat(cols[2])
+let qty=parseInt(cols[3])
+
+if(!name || isNaN(price) || isNaN(qty)) return
+
+// 🔥 IMPORTANT: use existing medicines array
+let existing=medicines.find(m=>m.name===name && m.company===company)
+
+if(existing){
+existing.price=price
+existing.qty=qty
+}else{
+medicines.push({name,company,price,qty})
 }
 
-});
+})
+
+// save
+localStorage.setItem("medicines",JSON.stringify(medicines))
+
+alert("CSV Imported Successfully")
+
+// refresh table (existing function)
+showMedicines()
 
 }
 
-function saveScannedMedicines(){
-
-let rows = document.querySelectorAll("#scanTable tbody tr");
-
-rows.forEach(row=>{
-
-let name = row.cells[0].innerText;
-let qty = row.cells[1].innerText;
-let price = row.cells[2].innerText;
-
-medicines.push({
-name:name,
-company:"Imported",
-price:price,
-qty:qty
-});
-
-});
-
-localStorage.setItem("medicines",JSON.stringify(medicines));
-
-alert("Medicines Saved");
-
-showMedicines();
+reader.readAsText(file)
 
 }

@@ -28,23 +28,13 @@
 <button onclick="addMedicine()">Add Medicine</button>
 </div>
 
-<h2>Scan Bill Image</h2>
-<input type="file" id="billImage" accept="image/*">
-<button onclick="scanBill()">Scan Bill</button>
-<p id="scanStatus"></p>
+<h3>Bulk Import CSV</h3>
 
-<h2>Scanned Medicines</h2>
-<table id="scanTable">
-<thead>
-<tr>
-<th>Name</th>
-<th>Qty</th>
-<th>Price</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-<button onclick="saveScannedMedicines()">Save Medicines</button>
+<input type="file" id="csvFile">
+<button onclick="uploadCSV()">Upload CSV</button>
+
+
+
 
 <h2>Search</h2>
 <div class="searchBox">
